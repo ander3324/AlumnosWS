@@ -59,6 +59,30 @@ public class AlumnosController {
         return listaAlu;
     }
 	
+	@RequestMapping("/alumnos/editar")
+    public List<Alumno> editarAlumno(
+    		@RequestParam(value = "legajo", defaultValue = "null", required = true)int leg,
+    		@RequestParam(value = "apellido", defaultValue = "null", required = true)String apellido,
+    		@RequestParam(value = "nombre", defaultValue = "null", required = true)String nombre,
+    		@RequestParam(value = "carrera", defaultValue = "null", required = true)String carrera,
+    		@RequestParam(value = "cantidad", defaultValue = "null", required = true)int cantMaterias
+    		) {
+		
+		if(listaAlu.size() == 0)
+			cargarAlumnos();
+		
+		for (Alumno a : listaAlu) {
+            if (a.getLegajo() == leg) {
+                a.setApellido(apellido);
+                a.setNombre(nombre);
+                a.setCarrera(carrera);
+                a.setCantMaterias(cantMaterias);
+            }
+        }
+
+        return listaAlu;
+    }
+	
 	@RequestMapping("/alumnos/borrar")
 	public List<Alumno> borrarAlumno(
 			@RequestParam(value = "legajo", defaultValue = "null", required = true)int leg){
